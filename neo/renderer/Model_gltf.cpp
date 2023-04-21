@@ -1207,7 +1207,7 @@ idFile_Memory* idRenderModelGLTF::GetAnimBin( const idStr& animName, const ID_TI
 		}
 
 		int parentIndex = data->GetNodeIndex( target->parent );
-		newJoint->nameIndex = animationLib.JointIndex( boneLess ? "origin" : target->name );
+		newJoint->nameIndex = animationLib.JointIndex( boneLess ? idStr( "origin" ) : target->name );
 		newJoint->parentNum = bones.FindIndex( parentIndex );
 
 		//assert( newJoint->parentNum >= 0 );

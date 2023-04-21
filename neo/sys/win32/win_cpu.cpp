@@ -848,8 +848,9 @@ cpuid_t Sys_GetCPUId()
 ===============================================================================
 */
 
+//	XML: some further constness required with the more rigorous string handliing of C++23
 typedef struct bitFlag_s {
-	char *		name;
+	const char *		name;
 	int			bit;
 } bitFlag_t;
 
@@ -865,13 +866,13 @@ static bitFlag_t controlWordFlags[] = {
 	{ "Infinity control", 12 },
 	{ "", 0 }
 };
-static char *precisionControlField[] = {
+static const char *precisionControlField[] = {
 	"Single Precision (24-bits)",
 	"Reserved",
 	"Double Precision (53-bits)",
 	"Double Extended Precision (64-bits)"
 };
-static char *roundingControlField[] = {
+static const char *roundingControlField[] = {
 	"Round to nearest",
 	"Round down",
 	"Round up",
@@ -889,6 +890,8 @@ static bitFlag_t statusWordFlags[] = {
 	{ "FPU busy", 15 },
 	{ "", 0 }
 };
+
+//	XML end
 
 /*
 ===============

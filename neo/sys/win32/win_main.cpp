@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <direct.h>
 #include <io.h>
 #include <conio.h>
-#include <mapi.h>
+// #include <MAPI.h>		// XML: no longer needed with the removal of EmailCrashReport
 #include <shellapi.h>
 #include <shlobj.h>
 
@@ -1792,136 +1792,143 @@ const char* GetExceptionCodeInfo( UINT code )
 	}
 }
 
-/*
-====================
-EmailCrashReport
+//	XML: disabling the EMail crash handler -- we don't want id's engineers getting emails from this software, and LPSTR 
+//	is ugly.
 
-  emailer originally from Raven/Quake 4
-====================
-*/
-void EmailCrashReport( LPSTR messageText )
-{
-	static int lastEmailTime = 0;
-
-	if( Sys_Milliseconds() < lastEmailTime + 10000 )
-	{
-		return;
-	}
-
-	lastEmailTime = Sys_Milliseconds();
-
-	HINSTANCE mapi = LoadLibrary( "MAPI32.DLL" );
-	if( mapi )
-	{
-		LPMAPISENDMAIL	MAPISendMail = ( LPMAPISENDMAIL )GetProcAddress( mapi, "MAPISendMail" );
-		if( MAPISendMail )
-		{
-			MapiRecipDesc toProgrammers =
-			{
-				0,										// ulReserved
-				MAPI_TO,							// ulRecipClass
-				"DOOM 3 Crash",						// lpszName
-				"SMTP:programmers@idsoftware.com",	// lpszAddress
-				0,									// ulEIDSize
-				0									// lpEntry
-			};
-
-			MapiMessage		message = {};
-			message.lpszSubject = "DOOM 3 Fatal Error";
-			message.lpszNoteText = messageText;
-			message.nRecipCount = 1;
-			message.lpRecips = &toProgrammers;
-
-			MAPISendMail(
-				0,									// LHANDLE lhSession
-				0,									// ULONG ulUIParam
-				&message,							// lpMapiMessage lpMessage
-				MAPI_DIALOG,						// FLAGS flFlags
-				0									// ULONG ulReserved
-			);
-		}
-		FreeLibrary( mapi );
-	}
-}
+//	Personally I feel the code could be deleted rather than jsut commented out.
+//	/*
+//	====================
+//	EmailCrashReport
+//	
+//	  emailer originally from Raven/Quake 4
+//	====================
+//	*/
+//	void EmailCrashReport( LPSTR messageText )
+//	{
+//		static int lastEmailTime = 0;
+//	
+//		if( Sys_Milliseconds() < lastEmailTime + 10000 )
+//		{
+//			return;
+//		}
+//	
+//		lastEmailTime = Sys_Milliseconds();
+//	
+//		HINSTANCE mapi = LoadLibrary( "MAPI32.DLL" );
+//		if( mapi )
+//		{
+//			LPMAPISENDMAIL	MAPISendMail = ( LPMAPISENDMAIL )GetProcAddress( mapi, "MAPISendMail" );
+//			if( MAPISendMail )
+//			{
+//				MapiRecipDesc toProgrammers =
+//				{
+//					0,										// ulReserved
+//					MAPI_TO,							// ulRecipClass
+//					"DOOM 3 Crash",						// lpszName
+//					"SMTP:programmers@idsoftware.com",	// lpszAddress
+//					0,									// ulEIDSize
+//					0									// lpEntry
+//				};
+//	
+//				MapiMessage		message = {};
+//				message.lpszSubject = "DOOM 3 Fatal Error";
+//				message.lpszNoteText = messageText;
+//				message.nRecipCount = 1;
+//				message.lpRecips = &toProgrammers;
+//	
+//				MAPISendMail(
+//					0,									// LHANDLE lhSession
+//					0,									// ULONG ulUIParam
+//					&message,							// lpMapiMessage lpMessage
+//					MAPI_DIALOG,						// FLAGS flFlags
+//					0									// ULONG ulReserved
+//				);
+//			}
+//			FreeLibrary( mapi );
+//		}
+//	}
 
 // RB: disabled unused FPU exception debugging
-#if 0 //!defined(__MINGW32__) && !defined(_WIN64)
+//	XML: disabling it even further after some wretched experiences with the preprocessor
 
-int Sys_FPU_PrintStateFlags( char* ptr, int ctrl, int stat, int tags, int inof, int inse, int opof, int opse );
-
-/*
-====================
-_except_handler
-====================
-*/
-EXCEPTION_DISPOSITION __cdecl _except_handler( struct _EXCEPTION_RECORD* ExceptionRecord, void* EstablisherFrame,
-		struct _CONTEXT* ContextRecord, void* DispatcherContext )
-{
-
-	static char msg[ 8192 ];
-	char FPUFlags[2048];
-
-	Sys_FPU_PrintStateFlags( FPUFlags, ContextRecord->FloatSave.ControlWord,
-							 ContextRecord->FloatSave.StatusWord,
-							 ContextRecord->FloatSave.TagWord,
-							 ContextRecord->FloatSave.ErrorOffset,
-							 ContextRecord->FloatSave.ErrorSelector,
-							 ContextRecord->FloatSave.DataOffset,
-							 ContextRecord->FloatSave.DataSelector );
-
-
-	sprintf( msg,
-			 "Please describe what you were doing when DOOM 3 crashed!\n"
-			 "If this text did not pop into your email client please copy and email it to programmers@idsoftware.com\n"
-			 "\n"
-			 "-= FATAL EXCEPTION =-\n"
-			 "\n"
-			 "%s\n"
-			 "\n"
-			 "0x%x at address 0x%08p\n"
-			 "\n"
-			 "%s\n"
-			 "\n"
-			 "EAX = 0x%08x EBX = 0x%08x\n"
-			 "ECX = 0x%08x EDX = 0x%08x\n"
-			 "ESI = 0x%08x EDI = 0x%08x\n"
-			 "EIP = 0x%08x ESP = 0x%08x\n"
-			 "EBP = 0x%08x EFL = 0x%08x\n"
-			 "\n"
-			 "CS = 0x%04x\n"
-			 "SS = 0x%04x\n"
-			 "DS = 0x%04x\n"
-			 "ES = 0x%04x\n"
-			 "FS = 0x%04x\n"
-			 "GS = 0x%04x\n"
-			 "\n"
-			 "%s\n",
-			 com_version.GetString(),
-			 ExceptionRecord->ExceptionCode,
-			 ExceptionRecord->ExceptionAddress,
-			 GetExceptionCodeInfo( ExceptionRecord->ExceptionCode ),
-			 ContextRecord->Eax, ContextRecord->Ebx,
-			 ContextRecord->Ecx, ContextRecord->Edx,
-			 ContextRecord->Esi, ContextRecord->Edi,
-			 ContextRecord->Eip, ContextRecord->Esp,
-			 ContextRecord->Ebp, ContextRecord->EFlags,
-			 ContextRecord->SegCs,
-			 ContextRecord->SegSs,
-			 ContextRecord->SegDs,
-			 ContextRecord->SegEs,
-			 ContextRecord->SegFs,
-			 ContextRecord->SegGs,
-			 FPUFlags
-		   );
-
-	EmailCrashReport( msg );
-	common->FatalError( msg );
-
-	// Tell the OS to restart the faulting instruction
-	return ExceptionContinueExecution;
-}
-#endif
+//	#if 0 //!defined(__MINGW32__) && !defined(_WIN64)
+//	
+//	int Sys_FPU_PrintStateFlags( char* ptr, int ctrl, int stat, int tags, int inof, int inse, int opof, int opse );
+//	
+//	/*
+//	====================
+//	_except_handler
+//	====================
+//	*/
+//	EXCEPTION_DISPOSITION __cdecl _except_handler( struct _EXCEPTION_RECORD* ExceptionRecord, void* EstablisherFrame,
+//			struct _CONTEXT* ContextRecord, void* DispatcherContext )
+//	{
+//	
+//		static char msg[ 8192 ];
+//		char FPUFlags[2048];
+//	
+//		Sys_FPU_PrintStateFlags( FPUFlags, ContextRecord->FloatSave.ControlWord,
+//								 ContextRecord->FloatSave.StatusWord,
+//								 ContextRecord->FloatSave.TagWord,
+//								 ContextRecord->FloatSave.ErrorOffset,
+//								 ContextRecord->FloatSave.ErrorSelector,
+//								 ContextRecord->FloatSave.DataOffset,
+//								 ContextRecord->FloatSave.DataSelector );
+//	
+//	
+//		sprintf( msg,
+//				 "Please describe what you were doing when DOOM 3 crashed!\n"
+//				 "If this text did not pop into your email client please copy and email it to programmers@idsoftware.com\n"
+//				 "\n"
+//				 "-= FATAL EXCEPTION =-\n"
+//				 "\n"
+//				 "%s\n"
+//				 "\n"
+//				 "0x%x at address 0x%08p\n"
+//				 "\n"
+//				 "%s\n"
+//				 "\n"
+//				 "EAX = 0x%08x EBX = 0x%08x\n"
+//				 "ECX = 0x%08x EDX = 0x%08x\n"
+//				 "ESI = 0x%08x EDI = 0x%08x\n"
+//				 "EIP = 0x%08x ESP = 0x%08x\n"
+//				 "EBP = 0x%08x EFL = 0x%08x\n"
+//				 "\n"
+//				 "CS = 0x%04x\n"
+//				 "SS = 0x%04x\n"
+//				 "DS = 0x%04x\n"
+//				 "ES = 0x%04x\n"
+//				 "FS = 0x%04x\n"
+//				 "GS = 0x%04x\n"
+//				 "\n"
+//				 "%s\n",
+//				 com_version.GetString(),
+//				 ExceptionRecord->ExceptionCode,
+//				 ExceptionRecord->ExceptionAddress,
+//				 GetExceptionCodeInfo( ExceptionRecord->ExceptionCode ),
+//				 ContextRecord->Eax, ContextRecord->Ebx,
+//				 ContextRecord->Ecx, ContextRecord->Edx,
+//				 ContextRecord->Esi, ContextRecord->Edi,
+//				 ContextRecord->Eip, ContextRecord->Esp,
+//				 ContextRecord->Ebp, ContextRecord->EFlags,
+//				 ContextRecord->SegCs,
+//				 ContextRecord->SegSs,
+//				 ContextRecord->SegDs,
+//				 ContextRecord->SegEs,
+//				 ContextRecord->SegFs,
+//				 ContextRecord->SegGs,
+//				 FPUFlags
+//			   );
+//	
+//		EmailCrashReport( msg );
+//		common->FatalError( msg );
+//	
+//		// Tell the OS to restart the faulting instruction
+//		return ExceptionContinueExecution;
+//	}
+//	#endif
 // RB end
+//	XML end
 
 #define TEST_FPU_EXCEPTIONS	/*	FPU_EXCEPTION_INVALID_OPERATION |		*/	\
 							/*	FPU_EXCEPTION_DENORMALIZED_OPERAND |	*/	\
@@ -1963,16 +1970,19 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	);
 #endif
 
-#if 0
-	DWORD handler = ( DWORD )_except_handler;
-	__asm
-	{
-		// Build EXCEPTION_REGISTRATION record:
-		push    handler         // Address of handler function
-		push    FS:[0]          // Address of previous handler
-		mov     FS:[0], ESP     // Install new EXECEPTION_REGISTRATION
-	}
-#endif
+	//	XML: further related to the broken exception handler and EmailReport
+//	#if 0
+//		DWORD handler = ( DWORD )_except_handler;
+//		__asm
+//		{
+//			// Build EXCEPTION_REGISTRATION record:
+//			push    handler         // Address of handler function
+//			push    FS:[0]          // Address of previous handler
+//			mov     FS:[0], ESP     // Install new EXECEPTION_REGISTRATION
+//		}
+//	#endif
+	//	XML end
+
 
 	win32.hInstance = hInstance;
 	idStr::Copynz( sys_cmdline, lpCmdLine, sizeof( sys_cmdline ) );
