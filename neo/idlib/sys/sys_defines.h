@@ -186,7 +186,8 @@ Defines and macros usable in all code
 ================================================================================================
 */
 
-#define ALIGN( x, a ) ( ( ( x ) + ((a)-1) ) & ~((a)-1) )
+#define ALIGN( x, a ) ( ( ( x ) + ((a)-1) ) - ( ( (x) + (a) - 1 ) % a ) )
+//#define ALIGN( x, a ) ( ( ( x ) + ((a)-1) ) & ~((a)-1) )
 
 
 // RB: changed UINT_PTR to uintptr_t
@@ -241,25 +242,29 @@ bulk of the codebase, so it is the best place for analyze pragmas.
 	#pragma warning( disable: 6540 )	// warning C6540: The use of attribute annotations on this function will invalidate all of its existing __declspec annotations [D:\tech5\engine\engine-10.vcxproj]
 
 	#pragma warning( disable: 4467 )	// .. Include\CodeAnalysis\SourceAnnotations.h(68): warning C4467: usage of ATL attributes is deprecated
-
-	#if !defined(VERIFY_FORMAT_STRING)
+	
+	//	XML: This next part was unbelievably painful.  For some reason C++23 causes the macros in SourceAnnotations.h to
+	//	freak out, and there's no graceful way to just turn off the macro or use #define without a definition that
+	//	doesn't also provoke unresolved external symbols in the linker.  I tried, I really did.
+	
+	//#if !defined(VERIFY_FORMAT_STRING)
 		// checking format strings catches a LOT of errors
-		#include <CodeAnalysis\SourceAnnotations.h>
-		#define	VERIFY_FORMAT_STRING	[SA_FormatString(Style="printf")]
+		// #include <CodeAnalysis\SourceAnnotations.h>
+		// #define	VERIFY_FORMAT_STRING	[SA_FormatString(Style="printf")]
 		// DG: alternative for GCC with attribute (NOOP for MSVC)
-		#define ID_STATIC_ATTRIBUTE_PRINTF(STRIDX, FIRSTARGIDX)
+		// #define ID_STATIC_ATTRIBUTE_PRINTF(STRIDX, FIRSTARGIDX)
 	#endif
 
 #else
-	#define	VERIFY_FORMAT_STRING
+	// #define	VERIFY_FORMAT_STRING
 	// STRIDX: index of format string in function arguments (first arg == 1)
 	// FIRSTARGIDX: index of first argument for the format string
-	#define ID_STATIC_ATTRIBUTE_PRINTF(STRIDX, FIRSTARGIDX) __attribute__ ((format (printf, STRIDX, FIRSTARGIDX)))
+	// #define ID_STATIC_ATTRIBUTE_PRINTF(STRIDX, FIRSTARGIDX) __attribute__ ((format (printf, STRIDX, FIRSTARGIDX)))
 	// DG end
 #endif // _MSC_VER
 
 // This needs to be handled so shift by 1
-#define ID_INSTANCE_ATTRIBUTE_PRINTF(STRIDX, FIRSTARGIDX) ID_STATIC_ATTRIBUTE_PRINTF((STRIDX+1),(FIRSTARGIDX+1))
+// #define ID_INSTANCE_ATTRIBUTE_PRINTF(STRIDX, FIRSTARGIDX) ID_STATIC_ATTRIBUTE_PRINTF((STRIDX+1),(FIRSTARGIDX+1))
 
 // We need to inform the compiler that Error() and FatalError() will
 // never return, so any conditions that leeds to them being called are
@@ -291,7 +296,7 @@ extern volatile int ignoredReturnValue;
 #define MAX_UNSIGNED_TYPE( x )	( ( ( ( 1U << ( ( sizeof( x ) - 1 ) * 8 ) ) - 1 ) << 8 ) | 255U )
 #define MIN_UNSIGNED_TYPE( x )	0
 
-#endif
+// #endif
 
 
 /*

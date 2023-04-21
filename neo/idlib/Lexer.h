@@ -251,9 +251,9 @@ public:
 	// returns the current line number
 	const int		GetLineNum();
 	// print an error message
-	void			Error( VERIFY_FORMAT_STRING const char* str, ... );
+	void			Error( const char* str, ... );
 	// print a warning message
-	void			Warning( VERIFY_FORMAT_STRING const char* str, ... );
+	void			Warning( const char* str, ... );
 	// returns true if Error() was called with LEXFL_NOFATALERRORS or LEXFL_NOERRORS set
 	bool			HadError() const;
 

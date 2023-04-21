@@ -131,7 +131,7 @@ public:
 	// updates frag counts and potentially ends the match in sudden death
 	void			PlayerDeath( idPlayer* dead, idPlayer* killer, bool telefrag );
 
-	void			AddChatLine( VERIFY_FORMAT_STRING const char* fmt, ... );
+	void			AddChatLine( const char* fmt, ... );
 
 	void			WriteToSnapshot( idBitMsg& msg ) const;
 	void			ReadFromSnapshot( const idBitMsg& msg );

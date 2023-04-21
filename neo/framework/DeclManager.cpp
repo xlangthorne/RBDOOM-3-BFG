@@ -214,7 +214,7 @@ public:
 	//BSM Added for the material editors rename capabilities
 	virtual bool				RenameDecl( declType_t type, const char* oldName, const char* newName );
 
-	virtual void				MediaPrint( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_INSTANCE_ATTRIBUTE_PRINTF( 1, 2 );
+	virtual void				MediaPrint( const char* fmt, ... ); 
 	virtual void				WritePrecacheCommands( idFile* f );
 
 	virtual const idMaterial* 		FindMaterial( const char* name, bool makeDefault = true );

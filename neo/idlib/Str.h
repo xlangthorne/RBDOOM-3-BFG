@@ -250,7 +250,7 @@ public:
 	idStr				Left( int len ) const;							// return the leftmost 'len' characters
 	idStr				Right( int len ) const;							// return the rightmost 'len' characters
 	idStr				Mid( int start, int len ) const;				// return 'len' characters starting at 'start'
-	void				Format( VERIFY_FORMAT_STRING const char* fmt, ... );					// perform a threadsafe sprintf to the string
+	void				Format( const char* fmt, ... );					// perform a threadsafe sprintf to the string
 	static idStr		FormatInt( const int num, bool isCash = false );			// formats an integer as a value with commas
 	static idStr		FormatCash( const int num )
 	{
@@ -307,7 +307,7 @@ public:
 	static int			IcmpnPath( const char* s1, const char* s2, int n );	// compares paths and makes sure folders come first
 	static void			Append( char* dest, int size, const char* src );
 	static void			Copynz( char* dest, const char* src, int destsize );
-	static int			snPrintf( char* dest, int size, VERIFY_FORMAT_STRING const char* fmt, ... );
+	static int			snPrintf( char* dest, int size, const char* fmt, ... );
 	static int			vsnPrintf( char* dest, int size, const char* fmt, va_list argptr );
 	static int			FindChar( const char* str, const char c, int start = 0, int end = -1 );
 	static int			FindText( const char* str, const char* text, bool casesensitive = true, int start = 0, int end = -1 );
@@ -399,7 +399,7 @@ public:
 	static const int	INVALID_POSITION = -1;
 };
 
-char* 					va( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_STATIC_ATTRIBUTE_PRINTF( 1, 2 );
+char*	va( const char* fmt, ... ); 
 
 /*
 ================================================================================================

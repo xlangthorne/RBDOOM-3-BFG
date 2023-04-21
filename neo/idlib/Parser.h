@@ -172,9 +172,9 @@ public:
 	// returns the current line number
 	const int		GetLineNum() const;
 	// print an error message
-	void			Error( VERIFY_FORMAT_STRING const char* str, ... ) const;
+	void			Error( const char* str, ... ) const;
 	// print a warning message
-	void			Warning( VERIFY_FORMAT_STRING const char* str, ... ) const;
+	void			Warning( const char* str, ... ) const;
 	// returns true if at the end of the file
 	bool			EndOfFile();
 	// add a global define that will be added to all opened sources
