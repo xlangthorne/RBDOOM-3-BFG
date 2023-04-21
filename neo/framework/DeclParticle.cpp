@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "precompiled.h"
 #pragma hdrstop
 
+import Lib.Hashing;
+
 idCVar binaryLoadParticles( "binaryLoadParticles", "1", 0, "enable binary load/write of particle decls" );
 
 static const byte BPRT_VERSION = 101;

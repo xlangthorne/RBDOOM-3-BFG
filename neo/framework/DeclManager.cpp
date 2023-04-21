@@ -34,6 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "../renderer/Color/ColorSpace.h"
 #include "../renderer/CmdlineProgressbar.h"
 
+import Lib.Hashing;
 /*
 
 GUIs and script remain separately parsed

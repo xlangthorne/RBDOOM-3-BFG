@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../sys_session_local.h"
 #include "../sys_savegame.h"
 
+import Lib.Hashing;
+
 idCVar savegame_winInduceDelay( "savegame_winInduceDelay", "0", CVAR_INTEGER, "on windows, this is a delay induced before any file operation occurs" );
 extern idCVar fs_savepath;
 extern idCVar saveGame_checksum;

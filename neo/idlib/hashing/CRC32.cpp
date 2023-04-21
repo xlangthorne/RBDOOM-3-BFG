@@ -1,7 +1,9 @@
-// module Lib.Hashing;
+module;
+
 #include "../precompiled.h"
 #pragma hdrstop
 
+module Lib.Hashing;
 // import Sys.Types;
 
 //   CRC-32

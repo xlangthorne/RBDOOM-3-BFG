@@ -1,14 +1,15 @@
-// module;
+module;
 
 // #include <cstring>
+// #include "../sys/sys_types.h"
 #include "../precompiled.h"
 #pragma hdrstop
 
-// MD5 hashing -- updated for 64 bit
-
-// module Lib.Hashing;
+module Lib.Hashing;
 
 // import Sys.Types;
+
+// MD5 hashing -- updated for 64 bit
 
 // =============================================================================================
 // Contains the MD5BlockChecksum implementation.

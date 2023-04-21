@@ -33,6 +33,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "../Game_local.h"
 
+import Lib.Hashing;
+
 // simple types.  function types are dynamically allocated
 idTypeDef	type_void( ev_void, &def_void, "void", 0, NULL );
 

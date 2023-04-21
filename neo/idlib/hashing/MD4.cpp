@@ -1,4 +1,4 @@
-// module;
+module;
 
 #include "../precompiled.h"
 #pragma hdrstop
@@ -6,7 +6,7 @@
 
 // #include <cstring>
 
-// module Lib.Hashing;
+module Lib.Hashing;
 
 //   RSA Data Security, Inc., MD4 message-digest algorithm. (RFC1320)
 
