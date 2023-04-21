@@ -103,7 +103,7 @@ public:
 	void		OpenMainBlock( renderLogMainBlock_t block );
 	void		CloseMainBlock( int block = -1 );
 
-	void		Printf( VERIFY_FORMAT_STRING const char* fmt, ... ) {}
+	void		Printf( const char* fmt, ... ) {}
 
 	void		FetchGPUTimers( backEndCounters_t& pc );
 };

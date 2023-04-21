@@ -30,6 +30,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "File_SaveGame.h"
 
+import Lib.Hashing;
+
 /*
 
 TODO: CRC on each block

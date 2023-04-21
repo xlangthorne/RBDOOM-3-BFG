@@ -95,7 +95,7 @@ protected:
 	float				delay;
 	float				random_delay;
 	int					nextTriggerTime;
-	idStr				requires;
+	idStr				requirement;	// XML: all incidences of 'requires' changed to 'requirement'; the former is now a keyword
 	int					removeItem;
 	bool				touchClient;
 	bool				touchOther;

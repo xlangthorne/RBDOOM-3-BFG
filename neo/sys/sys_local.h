@@ -40,7 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 class idSysLocal : public idSys
 {
 public:
-	virtual void			DebugPrintf( VERIFY_FORMAT_STRING const char* fmt, ... );
+	virtual void			DebugPrintf( const char* fmt, ... );
 	virtual void			DebugVPrintf( const char* fmt, va_list arg );
 
 	virtual double			GetClockTicks();

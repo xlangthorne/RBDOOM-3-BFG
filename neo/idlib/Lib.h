@@ -62,15 +62,15 @@ public:
 	static void					ShutDown();
 
 	// wrapper to idCommon functions
-	static void       			Printf( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_STATIC_ATTRIBUTE_PRINTF( 1, 2 );
-	static void       			PrintfIf( const bool test, VERIFY_FORMAT_STRING const char* fmt, ... ) ID_STATIC_ATTRIBUTE_PRINTF( 2, 3 );
-	NO_RETURN static void       Error( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_STATIC_ATTRIBUTE_PRINTF( 1, 2 );
-	NO_RETURN static void       FatalError( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_STATIC_ATTRIBUTE_PRINTF( 1, 2 );
-	static void       			Warning( VERIFY_FORMAT_STRING const char* fmt, ... ) ID_STATIC_ATTRIBUTE_PRINTF( 1, 2 );
-	static void       			WarningIf( const bool test, VERIFY_FORMAT_STRING const char* fmt, ... ) ID_STATIC_ATTRIBUTE_PRINTF( 2, 3 );
-
+	static void       			Printf( const char* fmt, ... );
+	static void       			PrintfIf( const bool test, const char* fmt, ... );   
+	NO_RETURN static void       Error( const char* fmt, ... );
+	NO_RETURN static void       FatalError( const char* fmt, ... ); 
 	// the extra check for mainThreadInitialized is necessary for this to be accurate
 	// when called by startup code that happens before idLib::Init
+	static void       			Warning( const char* fmt, ... );
+	static void       			WarningIf( const bool test, const char* fmt, ... ); 
+
 	static bool					IsMainThread()
 	{
 		return ( 0 == mainThreadInitialized ) || ( 1 == isMainThread );
@@ -320,9 +320,9 @@ public:
 #include "containers/PlaneSet.h"
 
 // hashing
-#include "hashing/CRC32.h"
-#include "hashing/MD4.h"
-#include "hashing/MD5.h"
+// #include "hashing/CRC32.h"
+// #include "hashing/MD4.h"
+// #include "hashing/MD5.h"
 
 // misc
 #include "Dict.h"

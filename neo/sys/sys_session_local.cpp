@@ -33,6 +33,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_voicechat.h"
 #include "sys_dedicated_server_search.h"
 
+import Lib.Hashing;
+
 
 idCVar ui_skinIndex( "ui_skinIndex", "0", CVAR_ARCHIVE, "Selected skin index" );
 idCVar ui_autoSwitch( "ui_autoSwitch", "1", CVAR_ARCHIVE | CVAR_BOOL, "auto switch weapon" );

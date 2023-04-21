@@ -745,7 +745,7 @@ void LightEditor::DrawWindow()
 			changes = true;
 
 			// -1 because 0 is "<No Texture>"
-			cur.strTexture = ( currentTextureIndex > 0 ) ? textureNames[currentTextureIndex - 1] : "";
+			cur.strTexture = ( currentTextureIndex > 0 ) ? textureNames[currentTextureIndex - 1] : idStr("");
 			LoadCurrentTexture();
 		}
 

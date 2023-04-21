@@ -435,11 +435,11 @@ public:
 
 	// ---------------------- Public idGameLocal Interface -------------------
 
-	void					Printf( VERIFY_FORMAT_STRING const char* fmt, ... ) const;
-	void					DPrintf( VERIFY_FORMAT_STRING const char* fmt, ... ) const;
-	void					Warning( VERIFY_FORMAT_STRING const char* fmt, ... ) const;
-	void					DWarning( VERIFY_FORMAT_STRING const char* fmt, ... ) const;
-	void					Error( VERIFY_FORMAT_STRING const char* fmt, ... ) const;
+	void					Printf( const char* fmt, ... ) const;
+	void					DPrintf( const char* fmt, ... ) const;
+	void					Warning( const char* fmt, ... ) const;
+	void					DWarning( const char* fmt, ... ) const;
+	void					Error( const char* fmt, ... ) const;
 
 	// Initializes all map variables common to both save games and spawned games
 	void					LoadMap( const char* mapName, int randseed );
@@ -475,7 +475,7 @@ public:
 		return spawnArgs;
 	}
 
-	bool					RequirementMet( idEntity* activator, const idStr& requires, int removeItem );
+	bool					RequirementMet( idEntity* activator, const idStr& requirement, int removeItem );
 
 	void					AlertAI( idEntity* ent );
 	idActor* 				GetAlertEntity();
@@ -730,7 +730,7 @@ private:
 
 	void					InitAsyncNetwork();
 	void					ShutdownAsyncNetwork();
-	void					NetworkEventWarning( const entityNetEvent_t* event, VERIFY_FORMAT_STRING const char* fmt, ... );
+	void					NetworkEventWarning( const entityNetEvent_t* event, const char* fmt, ... );
 	void					ServerProcessEntityNetworkEventQueue();
 	void					ClientProcessEntityNetworkEventQueue();
 	// call after any change to serverInfo. Will update various quick-access flags

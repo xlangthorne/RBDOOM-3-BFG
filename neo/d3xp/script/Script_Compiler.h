@@ -227,8 +227,8 @@ private:
 	const idVarDef*	basetype;			// for accessing fields
 
 	float			Divide( float numerator, float denominator );
-	void			Error( VERIFY_FORMAT_STRING const char* error, ... ) const;
-	void			Warning( VERIFY_FORMAT_STRING const char* message, ... ) const;
+	void			Error( const char* error, ... ) const;
+	void			Warning( const char* message, ... ) const;
 	idVarDef*		OptimizeOpcode( const opcode_t* op, idVarDef* var_a, idVarDef* var_b );
 	idVarDef*		EmitOpcode( const opcode_t* op, idVarDef* var_a, idVarDef* var_b );
 	idVarDef*		EmitOpcode( int op, idVarDef* var_a, idVarDef* var_b );

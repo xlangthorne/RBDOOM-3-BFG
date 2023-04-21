@@ -29,6 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #pragma hdrstop
 #include "sys_lobby.h"
 
+import Lib.Hashing;
+
 extern idCVar net_connectTimeoutInSeconds;
 extern idCVar net_headlessServer;
 

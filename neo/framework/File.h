@@ -75,11 +75,11 @@ public:
 	// Go back to the beginning of the file.
 	virtual void			Rewind();
 	// Like fprintf.
-	virtual int				Printf( VERIFY_FORMAT_STRING const char* fmt, ... );
+	virtual int				Printf( const char* fmt, ... );
 	// Like fprintf but with argument pointer
 	virtual int				VPrintf( const char* fmt, va_list arg );
 	// Write a string with high precision floating point numbers to the file.
-	virtual int				WriteFloatString( VERIFY_FORMAT_STRING const char* fmt, ... );
+	virtual int				WriteFloatString( const char* fmt, ... );
 
 	// Endian portable alternatives to Read(...)
 	virtual int				ReadInt( int& value );

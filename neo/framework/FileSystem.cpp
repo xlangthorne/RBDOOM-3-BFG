@@ -33,6 +33,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "Unzip.h"
 #include "Zip.h"
 
+import Lib.Hashing;
+
 #ifdef WIN32
 	#include <io.h>	// for _read
 #else

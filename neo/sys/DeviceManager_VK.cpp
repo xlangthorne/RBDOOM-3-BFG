@@ -30,6 +30,7 @@
 #include <string>
 #include <queue>
 #include <unordered_set>
+#include <sstream>
 
 #include "renderer/RenderCommon.h"
 #include <sys/DeviceManager.h>

@@ -276,8 +276,8 @@ public:
 	void						SetThreadName( const char* name );
 	const char*					GetThreadName();
 
-	void						Error( VERIFY_FORMAT_STRING const char* fmt, ... ) const;
-	void						Warning( VERIFY_FORMAT_STRING const char* fmt, ... ) const;
+	void						Error( const char* fmt, ... ) const;
+	void						Warning( const char* fmt, ... ) const;
 
 	static idThread*				CurrentThread();
 	static int					CurrentThreadNum();

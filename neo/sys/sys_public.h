@@ -502,10 +502,10 @@ void			Sys_SetClipboardData( const char* string );
 
 // will go to the various text consoles
 // NOT thread safe - never use in the async paths
-void			Sys_Printf( VERIFY_FORMAT_STRING const char* msg, ... );
+void			Sys_Printf( const char* msg, ... );
 
 // guaranteed to be thread-safe
-void			Sys_DebugPrintf( VERIFY_FORMAT_STRING const char* fmt, ... );
+void			Sys_DebugPrintf( const char* fmt, ... );
 void			Sys_DebugVPrintf( const char* fmt, va_list arg );
 
 // a decent minimum sleep time to avoid going below the process scheduler speeds
@@ -811,7 +811,7 @@ public:
 class idSys
 {
 public:
-	virtual void			DebugPrintf( VERIFY_FORMAT_STRING const char* fmt, ... ) = 0;
+	virtual void			DebugPrintf( const char* fmt, ... ) = 0;
 	virtual void			DebugVPrintf( const char* fmt, va_list arg ) = 0;
 
 	virtual double			GetClockTicks() = 0;

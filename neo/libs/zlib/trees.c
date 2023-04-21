@@ -37,7 +37,8 @@
 #include "deflate.h"
 
 // RB: avoid problems with SourceAnnotations.h
-#define VERIFY_FORMAT_STRING
+// XML: ...by not using it in the first place.  Macros: not even once.
+// #define VERIFY_FORMAT_STRING
 #ifndef TYPEINFOPROJECT
 #include "idlib/sys/sys_defines.h"
 #endif
