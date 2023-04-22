@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_lobby_backend.h"
 #include "sys_dedicated_server_search.h"
 
+import Lib.Callback;
+
 /*
 ========================
 idDedicatedServerSearch::idDedicatedServerSearch

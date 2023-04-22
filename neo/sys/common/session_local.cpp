@@ -25,6 +25,8 @@ Contains the windows implementation of the network session
 #include "achievements.h"
 //#include "win_local.h"
 
+import Lib.Callback;
+
 /*
 ========================
 Global variables

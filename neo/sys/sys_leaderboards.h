@@ -28,6 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_LEADERBOARDS_H__
 #define __SYS_LEADERBOARDS_H__
 
+#include "../../idlib/precompiled.h"
+
+import Lib.Callback;
 
 /*
 ================================================================================================

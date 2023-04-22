@@ -31,6 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "../framework/Serializer.h"
 #include "sys_localuser.h"
 
+import Lib.Callback;
+
 typedef uint8 peerMask_t;
 static const int MAX_PLAYERS			= 8;
 

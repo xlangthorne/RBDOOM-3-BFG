@@ -38,6 +38,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "sys_lobby_backend.h"
 #include "sys_lobby.h"
 
+import Lib.Callback;
+
 class idSaveGameProcessorNextMap;
 class idSaveGameProcessorSaveGame;
 class idSaveGameProcessorLoadGame;

@@ -28,6 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_SAVEGAME_H__
 #define __SYS_SAVEGAME_H__
 
+import Lib.Callback;
+
 #ifdef OUTPUT_FUNC
 	#undef OUTPUT_FUNC
 #endif

@@ -28,6 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef __SYS_STATS_H__
 #define __SYS_STATS_H__
 
+import Lib.Callback;
+
 //------------------------
 // leaderboardError_t
 //------------------------
